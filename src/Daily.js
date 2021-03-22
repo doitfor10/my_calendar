@@ -1,7 +1,9 @@
 import React from "react"; 
 import styled from 'styled-components';
+import ListView from './ListView'
+
 const Daily = (props) => { 
-    // 반환할 리액트 요소가 없을 때는 null을 넘겨주세요! 처음 껍데기 잡으실때도 null을 넘겨주면 굳! 
+   
    
     let day = props.day;
     let notThisMonth = props.notThisMonth;
@@ -17,7 +19,9 @@ const Daily = (props) => {
                 backgroundColor: '#E3302E',
                 borderRadius: '100%',
                
-            }}>{day}</Yoil>
+            }} >{day}
+            </Yoil>
+            <ListView/>
         </Day>);
     } else {
         return (<Day>
