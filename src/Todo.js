@@ -1,10 +1,21 @@
 import React from "react"; 
 import styled from 'styled-components';
+import { useDispatch, useSelector } from "react-redux";
+import { createTodo } from './redux/modules/todo';
+
+
 const Todo = (props) => { 
     
-
   
+   
+ 
+  const dispatch = useDispatch();
+  const choiceDate = React.useRef(null);
+  const time = React.useRef(0);
+  const todo = React.useRef(null);
 
+  //const basicTodoList = useSelector((state) => state.todo.todos);
+  
   return (
       
     <Container>
@@ -13,8 +24,8 @@ const Todo = (props) => {
       <Time>
         <span>일시 </span>
         {/* 비교 편하게 string 형으로 그냥 가져가기 */}
-        <input type="date" id="date" />
-          <select>
+        <input type="date" id="todoDate" ref={choiceDate}/>
+        <select ref={time}>
             <option value="0">오전 12:00</option>
             <option value="1">오전 01:00</option>
             <option value="2">오전 02:00</option>
@@ -43,14 +54,30 @@ const Todo = (props) => {
      </Time>
       <TodoBox>
         <span>할일</span>
-        <input type="text" placeholder="오늘의 할일은?"/>
+        <input type="text" ref={todo} placeholder="오늘의 할일은?"/>
       </TodoBox>
       <BtnBox>
         <button onClick={() => {
-          window.location.href = '/';
+          
+          if (choiceDate.current.value === '' || todo.current.value === ''){
+            alert('빈 칸이 없도록 작성해주세요!')
+            return false;
+          }
+
+          const new_date = choiceDate.current.value.split('-')
+          let new_todo = {
+            year: new_date[0],
+            month: new_date[1],
+            day: new_date[2],
+            time: Number(time.current.value),
+            text: todo.current.value,
+            done: false
+          }
+          dispatch(createTodo(new_todo))
+          props.history.push("/")
         }}>등록</button>
         <button className="cancel" onClick={() => {
-          window.location.href = '/';
+          props.history.push("/")
         }}>취소</button>
       </BtnBox>
     </Container>

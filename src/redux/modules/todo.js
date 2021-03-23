@@ -6,7 +6,9 @@ const COMPLETE = 'todo/COMPLETE'
 const DELETE = 'todo/DELETE'
 
 //초기값
+
 const initialState = {
+//id 넣기..
   todos: [
     {
     year: '2021',
@@ -15,7 +17,9 @@ const initialState = {
     time: 14,
     text: '자바스크립트 공부',
     done: true
-  },{
+    },
+    
+    {
     year: '2021',
     month: '03',
     day: '07',
@@ -89,8 +93,11 @@ export default function reducer(state = initialState, action = {}) {
       return state;
   
     case CREATE:
+      //action.todo['id'] = 새로운아이디..
       const new_todos = [...state.todos, action.todo];
-      return { todos: new_todos };
+      console.log(new_todos)
+      
+      return { ...state,todos: new_todos };
     
     case COMPLETE:
       
