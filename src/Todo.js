@@ -2,6 +2,9 @@ import React from "react";
 import styled from 'styled-components';
 const Todo = (props) => { 
     
+
+  
+
   return (
       
     <Container>
@@ -9,7 +12,8 @@ const Todo = (props) => {
       <p><span>소중한 일정</span> 잊지 말기! 일정을 추가해볼까요?</p>
       <Time>
         <span>일시 </span>
-        <input type="date" />
+        {/* 비교 편하게 string 형으로 그냥 가져가기 */}
+        <input type="date" id="date" />
           <select>
             <option value="0">오전 12:00</option>
             <option value="1">오전 01:00</option>

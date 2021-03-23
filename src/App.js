@@ -8,6 +8,7 @@ import Calendar from './Calendar.js';
 import Todo from './Todo.js';
 
 
+
 class App extends React.Component { 
   constructor(props){ 
     super(props); 
@@ -27,7 +28,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/" exact component={Calendar} />
             <Route path="/todo" exact component={Todo} />
-           </Switch>
+          </Switch>
           
           <Footer>
             <img src={Sim}/>
@@ -59,9 +60,10 @@ const Container = styled.div`
 
   @media (max-width:767px) {
   
-    width: 80vw;
+    width: 88vw;
     min-height: 400px;
   }
+
 `
 
 const Header = styled.div`
@@ -87,28 +89,33 @@ const Header = styled.div`
   }
 `
 const Footer = styled.div`
-  
+ 
+  display: flex;
   position: absolute;
   z-index:1000;
   bottom: -60px;
-  left:-415px;
+  left:-124px;
   & img{
-    
-    width:33%;
+    width:16vw;
   }
   @media (min-width: 768px) and (max-width:1023px) {
   
-    width: 70vw;
-    left:-300px;
-    bottom: -50px;
-    
+    bottom: -40px;
+    left:-54px;
+     & img{
+    width:20vw;
+    }
   }
 
   @media (max-width:767px) {
   
-    width: 80vw;
-    left:-140px;
-    bottom: -20px;
+    
+    left:-10px;
+    bottom: -30px;
+
+     & img{
+    width:22vw;
+    }
   }
   
 `

@@ -18,7 +18,7 @@ const Modal = ( props ) => {
                         {props.children}
                     </main>
                     <footer>
-                        <button className="close" onClick={close}> check </button>
+                        {!props.do &&<button className="close" onClick={close}> check </button> }
                         <button className="close" onClick={close}>  delete</button>
                         
 

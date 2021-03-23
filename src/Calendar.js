@@ -5,10 +5,12 @@ import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from 'react-redux';
+//리덕스 훅을 사용해서 액션 생성 함수를 불러와서 스토어에 저장된 값을 사용한다. 
 import Daily from './Daily.js'
 
-//달력
-const Calendar = (props) => { 
+  //달력
+  const Calendar = (props) => { 
     
   const [getMoment, setMoment] = useState(moment())
   const today = getMoment;
@@ -18,29 +20,29 @@ const Calendar = (props) => {
   const lastweek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();//끝나는 week()주
   
   const calendarArr = () => {
-    //3월 기준 5개의 테이블 열이 생긴다.
-    let result = [];
-    let week = firstWeek;
-    for (week; week <= lastweek; week++) {
-      
+  //3월 기준 5개의 테이블 열이 생긴다.
+  let result = [];
+  let week = firstWeek;
+  for (week; week <= lastweek; week++) {
+    
       result = result.concat(
         <ThisDay key={week}>
           {
             Array(7).fill(0).map((data, index) => {
               let days =  today.clone().startOf('year').week(week).startOf('week').add(index, 'day');
-              
+
               //오늘이 달력 표기일과 같다.
               if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
-                return <Daily day={days.format('D')} key={index} today={'yes'}/>
+                return <Daily day={days.format('D')} key={index} today={'yes'} month={days.format('MM')} date={days.format('YYYY.MM.DD')} />
               
                 //이번달이 아니라면 일자만 보내자. 
                 //day 컴포넌트를 두개로 조건문으로 분리하자.
               } else if (days.format('MM') !== today.format('MM')) {
-                return <Daily day={days.format('D')} key={index} notThisMonth={true}/>
+                return <Daily day={days.format('D')} key={index} notThisMonth={true} date={days.format('YYYY.MM.DD')}/>
               
                 //평범한 날들.
               } else {
-                return <Daily day={days.format('D')} key={index} today={'no'}/>
+                return <Daily day={days.format('D')} key={index} today={'no'} month={days.format('MM')} date={days.format('YYYY.MM.DD')}/>
               }
             })
           }
@@ -51,39 +53,36 @@ const Calendar = (props) => {
     return result;
   }
 
-
-
-
   return (
     // 헤더 컨트롤
     <CalendarWrap> 
       <Top>
         <FontAwesomeIcon icon={faChevronCircleLeft} size="1x" className="month-btn"
           onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'month')) } }/>
-      <Month>{today.format('MMMM YYYY')}</Month>
+        <Month>{today.format('MMMM YYYY')}</Month>
         <FontAwesomeIcon icon={faChevronCircleRight} size="1x" className="month-btn"
         onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }}/>
       </Top>
       <MiddleWrap>
-      <Middle>
-        <Week className="sun">SUN</Week>
-        <Week>MON</Week>
-        <Week>TUE</Week>
-        <Week>WED</Week>
-        <Week>THU</Week>
-        <Week>FRI</Week>
-        <Week className="sat">SAT</Week>
+        <Middle>
+          <Week className="sun">SUN</Week>
+          <Week>MON</Week>
+          <Week>TUE</Week>
+          <Week>WED</Week>
+          <Week>THU</Week>
+          <Week>FRI</Week>
+          <Week className="sat">SAT</Week>
         </Middle>
         <Bottem>
           {calendarArr()}
         </Bottem>
       </MiddleWrap>
-          <BtnWrap>
-            <Btns className="complete-btn">ok</Btns>
+      <BtnWrap>
+        <Btns className="complete-btn">ok</Btns>
         <Btns onClick={() => {
             props.history.push("/todo");
         }}>+</Btns>
-          </BtnWrap>
+      </BtnWrap>
 
    </CalendarWrap>
   ); 
@@ -95,9 +94,6 @@ const CalendarWrap = styled.div`
   margin:-8px auto 15px auto;
   width:83%;
   padding: 10px;
-
-  
-
 `
 
 const Top = styled.div`
@@ -129,8 +125,6 @@ const Middle = styled.div`
   align-items:center;
   padding:3px;
 
-  
-
   & .sun{
     color:#E3302E;
   }
@@ -147,14 +141,10 @@ const Middle = styled.div`
 
 const Week = styled.div`
   font-family: "YESGothic-Bold";
-  
-  
-
 `
 const Bottem = styled.div`
   display: grid;
   padding:3px;
-  
  
 `
 const ThisDay = styled.div`
@@ -195,23 +185,17 @@ const Btns = styled.button`
  transition: background-color .3s;
  
  @media (max-width:767px) {
-
   box-shadow: 0px 2px 5px #A5A5A5;
 }
-
-
  &:hover{
    background-color: #3BB3D8;
  }
- 
  &.complete-btn{
     font-size: 17px;
     font-family: "YESGothic-Bold";
-    
   &:hover{
     background-color: #DA2727;
   }
- 
 }
 
 `

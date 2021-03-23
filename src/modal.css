@@ -46,8 +46,7 @@
 
 /*메인 내역*/
 .modal > section > main {
-  padding: 16px;
-  border-bottom: 1px solid #dee2e6;
+  padding: 25px 16px;
   border-top: 1px solid #dee2e6;
 }
 .modal > section > footer {
