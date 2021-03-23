@@ -1,9 +1,9 @@
 //todo.js
 //액션 대문자!
-const LOAD = 'todo/LOAD'
-const CREATE = "todo/CREATE"
-const COMPLETE = 'todo/COMPLETE'
-const DELETE = 'todo/DELETE'
+const LOAD = 'todo/LOAD';
+const CREATE = "todo/CREATE";
+const COMPLETE = 'todo/COMPLETE';
+const DELETE = 'todo/DELETE';
 
 //초기값
 
@@ -11,6 +11,7 @@ const initialState = {
 //id 넣기..
   todos: [
     {
+    id: 1,
     year: '2021',
     month: '03',
     day: '23',
@@ -20,6 +21,7 @@ const initialState = {
     },
     
     {
+    id:2,
     year: '2021',
     month: '03',
     day: '07',
@@ -29,6 +31,7 @@ const initialState = {
   },
     
     {
+    id:3,
     year: '2021',
     month: '03',
     day: '23',
@@ -36,7 +39,8 @@ const initialState = {
     text: '소규모 면담하기',
     done: false
   }, 
-  {
+    {
+    id:4,
     year: '2021',
     month: '03',
     day: '25',
@@ -44,7 +48,7 @@ const initialState = {
     text: '리액트 복습하기',
     done: false
   },
-  {
+  { id:5,
     year: '2021',
     month: '03',
     day: '16',
@@ -52,7 +56,8 @@ const initialState = {
     text: '팔굽혀펴기 200회',
     done: false
     },
-  {
+    {
+    id:6,
     year: '2021',
     month: '04',
     day: '05',
@@ -77,12 +82,12 @@ export const createTodo = (todo) => {
   return {type:CREATE,todo}
 }
 
-export const completeTodo = (index) => {
-  return {type:COMPLETE,index}
+export const completeTodo = (id) => {
+  return {type:COMPLETE,id}
 }
 
-export const deleteTodo = (index) => {
-  return {type:DELETE,index}
+export const deleteTodo = (id) => {
+  return {type:DELETE,id}
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -94,18 +99,25 @@ export default function reducer(state = initialState, action = {}) {
   
     case CREATE:
       //action.todo['id'] = 새로운아이디..
-      const new_todos = [...state.todos, action.todo];
-      console.log(new_todos)
+      action.todo.id = state.todos[state.todos.length-1].id + 1;
+      const newTodos = [...state.todos, action.todo];
+      console.log(newTodos)
       
-      return { ...state,todos: new_todos };
+      return { ...state,todos: newTodos };
     
     case COMPLETE:
       
       break;
     
     case DELETE:
+      const todoList = state.todos.filter((todo, idx) => {
+        
+        if (todo.id !== action.id) {
+          return todo;
+        }
+      });
       
-      break;
+      return { todos: todoList };
     
     default:
       return state;

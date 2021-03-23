@@ -66,18 +66,19 @@ const Todo = (props) => {
 
           const new_date = choiceDate.current.value.split('-')
           let new_todo = {
+            id: 0,
             year: new_date[0],
             month: new_date[1],
             day: new_date[2],
             time: Number(time.current.value),
             text: todo.current.value,
             done: false
-          }
-          dispatch(createTodo(new_todo))
-          props.history.push("/")
+          };
+          dispatch(createTodo(new_todo));
+          props.history.push("/");
         }}>등록</button>
         <button className="cancel" onClick={() => {
-          props.history.push("/")
+          props.history.push("/");
         }}>취소</button>
       </BtnBox>
     </Container>

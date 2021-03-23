@@ -13,8 +13,9 @@ function ListView(props) {
         setModalOpen(false);
     }
 
-  const todo = props.todayTodos
-  const date = todo.year+'.'+todo.month+'.'+todo.day+' 일정'
+  const todo = props.todayTodos;
+  const date = todo.year + '.' + todo.month + '.' + todo.day + ' 일정';
+  const id = todo.id;
   return (
       //DOM 구조에 반영되지 않는 React Fragment를 이용하여
       //부모 태그의 render를 생략할 수 있다. 
@@ -26,7 +27,7 @@ function ListView(props) {
         <Todo onClick={openModal}>{todo.text}
           {todo.done && <span style={{fontWeight:'600',color:'#D82D2D',marginLeft:'4px'}}>✓</span>}
         </Todo>
-        <Modal open={modalOpen} close={closeModal} header={date} do={todo.done}>
+      <Modal open={modalOpen} close={closeModal} header={date} do={todo.done} id={id}>
         
           {todo.time < 12 && <span>오전 </span>}
           {todo.time>=12 && <span>오후 </span>}

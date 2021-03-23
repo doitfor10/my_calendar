@@ -29,11 +29,11 @@ const Daily = (props) => {
         if (todayTodos.length > 1) {
             todayTodos.sort(function (a, b) {
                 return a.time - b.time
-            })
+            });
         }
         arrListView = todayTodos.map((todo, index) => {
-            return <ListView todayTodos={todo} key={ index}/>
-    })
+            return <ListView todayTodos={todo} key={index} />
+        });
     }
 
     if (notThisMonth) { 
