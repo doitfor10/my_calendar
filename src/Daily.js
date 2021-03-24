@@ -2,6 +2,8 @@ import React from "react";
 import styled from 'styled-components';
 import ListView from './ListView'
 import { useDispatch, useSelector } from 'react-redux';
+import { loadTodoFB } from './redux/modules/todo';
+
 const Daily = (props) => { 
    
     //여기서 리스트를 받아오자.
@@ -11,7 +13,10 @@ const Daily = (props) => {
     let notThisMonth = props.notThisMonth;
     let today = props.today;
     let date = props.date.split('.');
+    const dispatch = useDispatch()
+    dispatch(loadTodoFB())  
     let todoList = useSelector(state => state.todo.todos)
+   
     
     //split으로 따로 뽑아.
     let year = date[0];

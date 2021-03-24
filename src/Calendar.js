@@ -6,21 +6,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from 'react-redux';
+import { completeList } from './redux/modules/todo';
 //리덕스 훅을 사용해서 액션 생성 함수를 불러와서 스토어에 저장된 값을 사용한다. 
 import Daily from './Daily.js'
 
+
+
   //달력
   const Calendar = (props) => { 
-    
-  const [getMoment, setMoment] = useState(moment())
+  //완료 리스트, 전체 리스트 토글용 변수
+  const [btnChange, setBtnChange] = useState(false);
+  const [getMoment, setMoment] = useState(moment());
   const today = getMoment;
-  
+  const dispatch = useDispatch();
   //1년 단위로 계산, 1년 중에서 오늘이?
   const firstWeek = today.clone().startOf('month').week(); //시작하는 week() 주.
   const lastweek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();//끝나는 week()주
-  
+
+    
   const calendarArr = () => {
   //3월 기준 5개의 테이블 열이 생긴다.
+    
+
+    
   let result = [];
   let week = firstWeek;
   for (week; week <= lastweek; week++) {
@@ -52,8 +60,12 @@ import Daily from './Daily.js'
     }//for
     return result;
   }
-
-  return (
+ 
+    
+    
+    return (
+    
+      
     // 헤더 컨트롤
     <CalendarWrap> 
       <Top>
@@ -78,7 +90,20 @@ import Daily from './Daily.js'
         </Bottem>
       </MiddleWrap>
       <BtnWrap>
-        <Btns className="complete-btn">ok</Btns>
+        <Btns className="complete-btn" onClick={() => {
+          if (btnChange === false) {
+
+            dispatch(completeList())
+            setBtnChange(true)
+          
+          } else {
+          
+            setBtnChange(false)
+           
+          }
+        }}>
+          {btnChange === false ? "ok" : "all"}
+        </Btns>
         <Btns onClick={() => {
             props.history.push("/todo");
         }}>+</Btns>

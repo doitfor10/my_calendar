@@ -21,7 +21,9 @@ const Modal = ( props ) => {
                         {props.children}
                     </main>
                     <footer>
-                        {!props.do &&<button className="check"> check </button> }
+                        {!props.do && <button className="check" onClick={() => {
+                            dispatch(completeTodo(id))   
+                        }}> check </button> }
                         <button id={id} onClick={() => {
                             dispatch(deleteTodo(id));
                          }}>delete</button>

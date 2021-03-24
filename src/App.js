@@ -6,7 +6,7 @@ import './style.scss';
 import Sim from './image/sim.png';
 import Calendar from './Calendar.js';
 import Todo from './Todo.js';
-
+import { firestore } from './firebase';
 
 
 class App extends React.Component { 
@@ -15,7 +15,8 @@ class App extends React.Component {
     this.state = {} 
   } 
   componentDidMount(){ 
-  } 
+    
+  }
    
   render(){ 
     return ( 

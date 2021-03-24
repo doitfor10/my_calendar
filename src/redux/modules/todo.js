@@ -1,9 +1,12 @@
 //todo.js
+import { firestore } from '../../firebase'
+const todo_db = firestore.collection('todo');
 //액션 대문자!
 const LOAD = 'todo/LOAD';
 const CREATE = "todo/CREATE";
 const COMPLETE = 'todo/COMPLETE';
 const DELETE = 'todo/DELETE';
+const COMPLETELIST = 'todo/COMPLETELIST';
 
 //초기값
 
@@ -80,8 +83,8 @@ const initialState = {
 //컴포넌트에서 고르라고 했다. 
 //후에 여기에 추가하거나 컴포넌트에서 바꾸기.
 //done ===false ?
-export const loadTodo = () => {
-  return { type: LOAD };
+export const loadTodo = (todo) => {
+  return { type: LOAD,todo};
 
 }
 export const createTodo = (todo) => {
@@ -96,11 +99,43 @@ export const deleteTodo = (id) => {
   return {type:DELETE,id}
 }
 
+export const completeList = () => {
+  return {type:COMPLETELIST}
+}
+
+
+//firebase 통신 함수 
+export const loadTodoFB = () => {
+  
+  //미들웨어 덕에 함수 반환 
+  //getState = 모듈 state 값 
+  return function (dispatch) {
+    
+    todo_db.get().then((docs) => {
+      
+      let todo_data = [];
+      docs.forEach((doc) => {
+        if (doc.exists) {
+          todo_data = [...todo_data, { id: doc.id, ...doc.data() }];
+        }
+      });
+      console.log(todo_data);
+      dispatch(loadTodo(todo_data));
+    });
+  }
+}
+
+
+
+
 export default function reducer(state = initialState, action = {}) {
   
   switch (action.type) {
     case LOAD:
-        
+      if (action.todo.length > 0) {
+        return {todos: action.todo}
+      }
+      
       return state;
   
     case CREATE:
@@ -109,13 +144,24 @@ export default function reducer(state = initialState, action = {}) {
         action.todo.id = state.todos[state.todos.length - 1].id + 1;
       }
       const newTodos = [...state.todos, action.todo];
-      console.log(newTodos)
+      
       
       return { ...state,todos: newTodos };
     
-    case COMPLETE:
+    case COMPLETE: {
+      const updateDone = state.todos.map((todo) => {
+        if (todo.id === action.id) {
+          return { ...todo, done: true }
+        } else {
+          return todo;  
+        }
+      });
       
-      break;
+      return { todos: updateDone };
+    
+    }
+      
+      
     
     case DELETE:
       const todoList = state.todos.filter((todo, idx) => {
@@ -126,6 +172,19 @@ export default function reducer(state = initialState, action = {}) {
       });
       
       return { todos: todoList };
+    
+    case COMPLETELIST:
+
+      const completeList = state.todos.filter((todo) => {
+
+        if (todo.done === true) {
+          return todo;
+        }
+
+      });
+     
+      return {todos: completeList}
+    
     
     default:
       return state;

@@ -6,9 +6,6 @@ import { createTodo } from './redux/modules/todo';
 
 const Todo = (props) => { 
     
-  
-   
- 
   const dispatch = useDispatch();
   const choiceDate = React.useRef(null);
   const hour = React.useRef(null);

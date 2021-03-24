@@ -16,7 +16,7 @@ function ListView(props) {
   const todo = props.todayTodos;
   const date = todo.year + '.' + todo.month + '.' + todo.day + ' 일정';
   const id = todo.id;
-  console.log(todo.hour)
+ 
   return (
       //DOM 구조에 반영되지 않는 React Fragment를 이용하여
       //부모 태그의 render를 생략할 수 있다. 
