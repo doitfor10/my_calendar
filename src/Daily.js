@@ -13,8 +13,8 @@ const Daily = (props) => {
     let notThisMonth = props.notThisMonth;
     let today = props.today;
     let date = props.date.split('.');
-    const dispatch = useDispatch()
-    dispatch(loadTodoFB())  
+   // const dispatch = useDispatch()
+   // dispatch(loadTodoFB())  
     let todoList = useSelector(state => state.todo.todos)
    
     

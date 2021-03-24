@@ -1,7 +1,7 @@
 import React from 'react';
 import './modal.css'
 import { useDispatch, useSelector } from "react-redux";
-import { completeTodo,deleteTodo } from './redux/modules/todo';
+import { completeTodo,deleteTodo,completeTodoFB } from './redux/modules/todo';
 const Modal = ( props ) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const { open, close, header } = props;
@@ -22,7 +22,10 @@ const Modal = ( props ) => {
                     </main>
                     <footer>
                         {!props.do && <button className="check" onClick={() => {
-                            dispatch(completeTodo(id))   
+                            dispatch(completeTodoFB(id));
+                            //window.location.href= '/'
+                            //window.location.replace("/")
+                            //window.location.reload()
                         }}> check </button> }
                         <button id={id} onClick={() => {
                             dispatch(deleteTodo(id));

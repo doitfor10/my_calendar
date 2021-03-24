@@ -119,14 +119,53 @@ export const loadTodoFB = () => {
           todo_data = [...todo_data, { id: doc.id, ...doc.data() }];
         }
       });
-      console.log(todo_data);
+      
       dispatch(loadTodo(todo_data));
     });
   }
 }
 
+export const createTodoFB = (todo) => {
+  
+  return function (dispatch) {
+    let todo_item = {
+      year: todo.year,
+      month: todo.month,
+      day: todo.day,
+      hour: todo.hour,
+      minute: todo.minute,
+      text: todo.text,
+      done: todo.done,
+    };
+
+    todo_db.add(todo_item).then(docRef => {
+
+      todo_item = { ...todo_item, id: docRef.id };
+      dispatch(createTodo(todo_item));
+
+    })
+  }
+}
+
+export const completeTodoFB = (id) => {
+  return function (dispatch, getState) {
+    
+    // const _todo_item = getState().todo.todos.filter((baseTodo) => {
+      
+    //   if (baseTodo.id === id) {
+    //     return baseTodo
+    //   }
+    // })
+
+    //let todo_item = { ..._todo_item, done: true }
+    console.log(id)
+    todo_db.doc(id).update({ done: true })
+    dispatch(completeTodo())
 
 
+  }//return
+  
+}
 
 export default function reducer(state = initialState, action = {}) {
   
@@ -140,13 +179,14 @@ export default function reducer(state = initialState, action = {}) {
   
     case CREATE:
       
-      if(state.todos.length!==0){
-        action.todo.id = state.todos[state.todos.length - 1].id + 1;
-      }
-      const newTodos = [...state.todos, action.todo];
+      // if(state.todos.length!==0){
+      //   action.todo.id = state.todos[state.todos.length - 1].id + 1;
+      // }
+      // const newTodos = [...state.todos, action.todo];
+      const newTodos = [...state.todos, action.todo,]
       
-      
-      return { ...state,todos: newTodos };
+      return {todos:newTodos}
+      //return { ...state,todos: newTodos };
     
     case COMPLETE: {
       const updateDone = state.todos.map((todo) => {

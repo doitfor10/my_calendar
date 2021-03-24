@@ -7,16 +7,35 @@ import Sim from './image/sim.png';
 import Calendar from './Calendar.js';
 import Todo from './Todo.js';
 import { firestore } from './firebase';
+import {connect} from 'react-redux'; 
+import { loadTodoFB } from './redux/modules/todo';
 
+const mapStateTopProps = (state) => ({
+ 
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  
+  load: () => {
+    dispatch(loadTodoFB())
+  }
+
+});
 
 class App extends React.Component { 
   constructor(props){ 
     super(props); 
     this.state = {} 
   } 
-  componentDidMount(){ 
+
+
+
+  componentDidMount() {
     
-  }
+    this.props.load();
+
+   }
    
   render(){ 
     return ( 
@@ -39,7 +58,7 @@ class App extends React.Component {
     ); 
   } 
 } 
-export default withRouter(App);
+export default connect(mapStateTopProps, mapDispatchToProps)(withRouter(App));
 
 const Container = styled.div`
   width:55vw;
