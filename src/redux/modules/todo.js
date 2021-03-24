@@ -15,7 +15,8 @@ const initialState = {
     year: '2021',
     month: '03',
     day: '23',
-    time: 14,
+    hour: '14',
+    minute:'20',
     text: '자바스크립트 공부',
     done: true
     },
@@ -25,7 +26,8 @@ const initialState = {
     year: '2021',
     month: '03',
     day: '07',
-    time: 19,
+      hour: '19',
+    minute:'50',
     text: 'WIL 쓰기',
     done: true
   },
@@ -35,7 +37,8 @@ const initialState = {
     year: '2021',
     month: '03',
     day: '23',
-    time: 17,
+    hour: '17',
+    minute:'30',
     text: '소규모 면담하기',
     done: false
   }, 
@@ -44,7 +47,8 @@ const initialState = {
     year: '2021',
     month: '03',
     day: '25',
-    time: 16,
+    hour: '16',
+    minute:'10',
     text: '리액트 복습하기',
     done: false
   },
@@ -52,7 +56,8 @@ const initialState = {
     year: '2021',
     month: '03',
     day: '16',
-    time: 8,
+    hour: '8',
+    minute:'00',
     text: '팔굽혀펴기 200회',
     done: false
     },
@@ -61,7 +66,8 @@ const initialState = {
     year: '2021',
     month: '04',
     day: '05',
-    time: 10,
+    hour: '10',
+    minute:'00',
     text: '밀린 드라마 보기',
     done: false
   },
@@ -98,8 +104,10 @@ export default function reducer(state = initialState, action = {}) {
       return state;
   
     case CREATE:
-      //action.todo['id'] = 새로운아이디..
-      action.todo.id = state.todos[state.todos.length-1].id + 1;
+      
+      if(state.todos.length!==0){
+        action.todo.id = state.todos[state.todos.length - 1].id + 1;
+      }
       const newTodos = [...state.todos, action.todo];
       console.log(newTodos)
       

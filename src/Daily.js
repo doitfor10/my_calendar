@@ -4,7 +4,7 @@ import ListView from './ListView'
 import { useDispatch, useSelector } from 'react-redux';
 const Daily = (props) => { 
    
-    //여기서 리스트를 받아와야한다. 
+    //여기서 리스트를 받아오자.
     //달과 요일을 받아서 전체리스트를 가져와서
     //listview에 같이 준다.
     let day = props.day;
@@ -28,7 +28,7 @@ const Daily = (props) => {
         //개수 오류 안나게 length 체크해서 시간순 sort
         if (todayTodos.length > 1) {
             todayTodos.sort(function (a, b) {
-                return a.time - b.time
+                return a.hour - b.hour || a.minute - b.minute
             });
         }
         arrListView = todayTodos.map((todo, index) => {
