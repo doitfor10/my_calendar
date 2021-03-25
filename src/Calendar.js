@@ -5,20 +5,29 @@ import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from 'react-redux';
-import { completeList } from './redux/modules/todo';
+
+
 //리덕스 훅을 사용해서 액션 생성 함수를 불러와서 스토어에 저장된 값을 사용한다. 
 import Daily from './Daily.js'
 
-
+//result를 필터링 한 값이랑 원래값을 준비하고 
 
   //달력
   const Calendar = (props) => { 
-  //완료 리스트, 전체 리스트 토글용 변수
-  const [btnChange, setBtnChange] = useState(false);
+
+ 
+     
+  const [btnChange, setBtnChange] = useState(false); //전체값 
   const [getMoment, setMoment] = useState(moment());
+    
+    const changeList = () => {
+      setBtnChange(!btnChange);
+    }
+
+
+
   const today = getMoment;
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   //1년 단위로 계산, 1년 중에서 오늘이?
   const firstWeek = today.clone().startOf('month').week(); //시작하는 week() 주.
   const lastweek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();//끝나는 week()주
@@ -26,8 +35,7 @@ import Daily from './Daily.js'
     
   const calendarArr = () => {
   //3월 기준 5개의 테이블 열이 생긴다.
-    
-
+  
     
   let result = [];
   let week = firstWeek;
@@ -41,16 +49,16 @@ import Daily from './Daily.js'
 
               //오늘이 달력 표기일과 같다.
               if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
-                return <Daily day={days.format('D')} key={index} today={'yes'} month={days.format('MM')} date={days.format('YYYY.MM.DD')} />
+                return <Daily day={days.format('D')} key={index} today={'yes'} month={days.format('MM')} date={days.format('YYYY.MM.DD')} btnToggle={btnChange}/>
               
                 //이번달이 아니라면 일자만 보내자. 
                 //day 컴포넌트를 두개로 조건문으로 분리하자.
               } else if (days.format('MM') !== today.format('MM')) {
-                return <Daily day={days.format('D')} key={index} notThisMonth={true} date={days.format('YYYY.MM.DD')}/>
+                return <Daily day={days.format('D')} key={index} notThisMonth={true} date={days.format('YYYY.MM.DD')} btnToggle={btnChange}/>
               
                 //평범한 날들.
               } else {
-                return <Daily day={days.format('D')} key={index} today={'no'} month={days.format('MM')} date={days.format('YYYY.MM.DD')}/>
+                return <Daily day={days.format('D')} key={index} today={'no'} month={days.format('MM')} date={days.format('YYYY.MM.DD')} btnToggle={btnChange}/>
               }
             })
           }
@@ -90,16 +98,15 @@ import Daily from './Daily.js'
         </Bottem>
       </MiddleWrap>
       <BtnWrap>
-        <Btns className="complete-btn" onClick={() => {
+          <Btns className="complete-btn" onClick={() => {
+            //console.log(btnChange)
           if (btnChange === false) {
 
-            dispatch(completeList())
-            setBtnChange(true)
+            changeList();
           
           } else {
-          
-            setBtnChange(false)
            
+           changeList();
           }
         }}>
           {btnChange === false ? "ok" : "all"}

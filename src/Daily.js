@@ -1,8 +1,8 @@
 import React from "react"; 
 import styled from 'styled-components';
 import ListView from './ListView'
-import { useDispatch, useSelector } from 'react-redux';
-import { loadTodoFB } from './redux/modules/todo';
+import { useSelector } from 'react-redux';
+
 
 const Daily = (props) => { 
    
@@ -16,17 +16,22 @@ const Daily = (props) => {
    // const dispatch = useDispatch()
    // dispatch(loadTodoFB())  
     let todoList = useSelector(state => state.todo.todos)
-   
+    let btnToggle = props.btnToggle;
+    
     
     //split으로 따로 뽑아.
     let year = date[0];
     let month = date[1];
     let date_ = date[2];
     
-    //이 날의 todoList
-    const todayTodos = todoList.filter((todo) => {
+    //이 날의 todoList => 버튼토글 true/false에 따라 모든 일정/ 완료 일정 보여주기.
+    const todayTodos = (btnToggle === false?todoList.filter((todo) => {
         return todo.year === year && todo.month === month && todo.day === date_ 
-    })
+    }):todoList.filter((todo) => {
+        return todo.year === year && todo.month === month && todo.day === date_&& todo.done === true
+    }))
+
+
 
     let arrListView;
     if (todayTodos) {

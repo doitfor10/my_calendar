@@ -1,7 +1,7 @@
 import React from "react"; 
 import styled from 'styled-components';
-import { useDispatch, useSelector } from "react-redux";
-import { createTodo,createTodoFB } from './redux/modules/todo';
+import { useDispatch} from "react-redux";
+import { createTodoFB } from './redux/modules/todo';
 
 
 const Todo = (props) => { 
@@ -11,9 +11,6 @@ const Todo = (props) => {
   const hour = React.useRef(null);
   const minute = React.useRef(null);
   const todo = React.useRef(null);
-  
-
-  //const basicTodoList = useSelector((state) => state.todo.todos);
   
   return (
       

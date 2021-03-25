@@ -12,7 +12,6 @@ import { loadTodoFB } from './redux/modules/todo';
 
 const mapStateTopProps = (state) => ({
  
-
 });
 
 const mapDispatchToProps = (dispatch) => ({

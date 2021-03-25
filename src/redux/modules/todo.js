@@ -8,6 +8,7 @@ const COMPLETE = 'todo/COMPLETE';
 const DELETE = 'todo/DELETE';
 const COMPLETELIST = 'todo/COMPLETELIST';
 
+
 //초기값
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
     {
     id: 1,
     year: '2021',
-    month: '03',
+    month: '05',
     day: '23',
     hour: '14',
     minute:'20',
@@ -24,57 +25,8 @@ const initialState = {
     done: true
     },
     
-    {
-    id:2,
-    year: '2021',
-    month: '03',
-    day: '07',
-      hour: '19',
-    minute:'50',
-    text: 'WIL 쓰기',
-    done: true
-  },
-    
-    {
-    id:3,
-    year: '2021',
-    month: '03',
-    day: '23',
-    hour: '17',
-    minute:'30',
-    text: '소규모 면담하기',
-    done: false
-  }, 
-    {
-    id:4,
-    year: '2021',
-    month: '03',
-    day: '25',
-    hour: '16',
-    minute:'10',
-    text: '리액트 복습하기',
-    done: false
-  },
-  { id:5,
-    year: '2021',
-    month: '03',
-    day: '16',
-    hour: '8',
-    minute:'00',
-    text: '팔굽혀펴기 200회',
-    done: false
-    },
-    {
-    id:6,
-    year: '2021',
-    month: '04',
-    day: '05',
-    hour: '10',
-    minute:'00',
-    text: '밀린 드라마 보기',
-    done: false
-  },
   ],
+
 };
 
 //액션 생성자 
@@ -104,12 +56,13 @@ export const completeList = () => {
 }
 
 
+
 //firebase 통신 함수 
 export const loadTodoFB = () => {
   
   //미들웨어 덕에 함수 반환 
   //getState = 모듈 state 값 
-  return function (dispatch) {
+  return function (dispatch,getState) {
     
     todo_db.get().then((docs) => {
       
@@ -119,7 +72,7 @@ export const loadTodoFB = () => {
           todo_data = [...todo_data, { id: doc.id, ...doc.data() }];
         }
       });
-      
+      console.log(1)
       dispatch(loadTodo(todo_data));
     });
   }
@@ -148,45 +101,55 @@ export const createTodoFB = (todo) => {
 }
 
 export const completeTodoFB = (id) => {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     
-    // const _todo_item = getState().todo.todos.filter((baseTodo) => {
-      
-    //   if (baseTodo.id === id) {
-    //     return baseTodo
-    //   }
-    // })
-
-    //let todo_item = { ..._todo_item, done: true }
-    console.log(id)
-    todo_db.doc(id).update({ done: true })
-    dispatch(completeTodo())
-
-
-  }//return
-  
+    
+    //여기서 비동기 처리 후 작업을 해줘야 한다.
+    //돌아가는 것도 여기서.
+    todo_db.doc(id).update({ done: true }).then(() => {
+      dispatch(completeTodo());
+      window.location.replace("/");
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 }
+
+
+export const deleteTodoFB = (id) => {
+  
+  return function (dispatch, getState) {
+    const _todo_item = getState().todo.todos.find((todo) => todo.id === id)
+    //없으면 그냥 리턴.
+    if (!_todo_item) {
+      return;
+    }
+    todo_db.doc(_todo_item.id).delete().then((docRef) => {
+      dispatch(deleteTodo(id))
+      window.location.replace("/");
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+}
+
 
 export default function reducer(state = initialState, action = {}) {
   
   switch (action.type) {
     case LOAD:
-      if (action.todo.length > 0) {
-        return {todos: action.todo}
-      }
       
+       if (action.todo.length > 0) {
+         return { todos: action.todo }
+       }
+     
       return state;
   
     case CREATE:
-      
-      // if(state.todos.length!==0){
-      //   action.todo.id = state.todos[state.todos.length - 1].id + 1;
-      // }
-      // const newTodos = [...state.todos, action.todo];
+
       const newTodos = [...state.todos, action.todo,]
-      
       return {todos:newTodos}
-      //return { ...state,todos: newTodos };
+      
     
     case COMPLETE: {
       const updateDone = state.todos.map((todo) => {
@@ -223,7 +186,9 @@ export default function reducer(state = initialState, action = {}) {
 
       });
      
-      return {todos: completeList}
+      return { todos: completeList };
+    
+   
     
     
     default:
