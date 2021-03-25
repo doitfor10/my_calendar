@@ -10,7 +10,7 @@ import { firestore } from './firebase';
 import {connect} from 'react-redux'; 
 import { loadTodoFB } from './redux/modules/todo';
 import Spinner from './Spinner';
-
+import NotFound from './NotFound';
 
 const mapStateTopProps = (state) => ({
  is_loaded : state.todo.is_loaded
@@ -51,6 +51,7 @@ class App extends React.Component {
               <Switch>
                 <Route path="/" exact component={Calendar} />
                 <Route path="/todo" exact component={Todo} />
+                <Route component={NotFound}/>
               </Switch>
               <Footer>
                 <img src={Sim}/>
