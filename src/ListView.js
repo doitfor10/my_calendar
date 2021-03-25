@@ -28,7 +28,7 @@ function ListView(props) {
         <Todo onClick={openModal}>{todo.text}
           {todo.done && <span style={{fontWeight:'600',color:'#D82D2D',marginLeft:'4px'}}>✓</span>}
         </Todo>
-      <Modal open={modalOpen} close={closeModal} header={date} do={todo.done} id={id}>
+      <Modal open={modalOpen} close={closeModal} header={date} do={todo.done} id={id} >
           
           {todo.hour < 12 && <span>오전 </span>}
           {todo.hour>=12 && <span>오후 </span>}

@@ -9,9 +9,11 @@ import Todo from './Todo.js';
 import { firestore } from './firebase';
 import {connect} from 'react-redux'; 
 import { loadTodoFB } from './redux/modules/todo';
+import Spinner from './Spinner';
+
 
 const mapStateTopProps = (state) => ({
- 
+ is_loaded : state.todo.is_loaded
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,21 +40,24 @@ class App extends React.Component {
    
   render(){ 
     return ( 
-      <div className="App"> 
-        <Container>
-          <Header>
-            <h2>오늘도 신나는 일정 관리!</h2>
-            <hr/>
-          </Header>
-          <Switch>
-            <Route path="/" exact component={Calendar} />
-            <Route path="/todo" exact component={Todo} />
-          </Switch>
-          
-          <Footer>
-            <img src={Sim}/>
-          </Footer>
-        </Container>
+      <div className="App">
+        {!this.props.is_loaded ? (<Spinner />) : (
+          <React.Fragment>
+            <Container>
+              <Header>
+                <h2>오늘도 신나는 일정 관리!</h2>
+                <hr/>
+              </Header>
+              <Switch>
+                <Route path="/" exact component={Calendar} />
+                <Route path="/todo" exact component={Todo} />
+              </Switch>
+              <Footer>
+                <img src={Sim}/>
+              </Footer>
+          </Container>
+        </React.Fragment>
+        ) }
       </div> 
     ); 
   } 

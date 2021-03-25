@@ -26,7 +26,7 @@ const initialState = {
     },
     
   ],
-
+  is_loaded: false,
 };
 
 //액션 생성자 
@@ -140,7 +140,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD:
       
        if (action.todo.length > 0) {
-         return { todos: action.todo }
+         return { todos: action.todo, is_loaded: true }
        }
      
       return state;
@@ -148,7 +148,7 @@ export default function reducer(state = initialState, action = {}) {
     case CREATE:
 
       const newTodos = [...state.todos, action.todo,]
-      return {todos:newTodos}
+      return {todos:newTodos, is_loaded: true }
       
     
     case COMPLETE: {
