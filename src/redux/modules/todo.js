@@ -72,7 +72,7 @@ export const loadTodoFB = () => {
           todo_data = [...todo_data, { id: doc.id, ...doc.data() }];
         }
       });
-      console.log(1)
+     
       dispatch(loadTodo(todo_data));
     });
   }

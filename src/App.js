@@ -6,7 +6,6 @@ import './style.scss';
 import Sim from './image/sim.png';
 import Calendar from './Calendar.js';
 import Todo from './Todo.js';
-import { firestore } from './firebase';
 import {connect} from 'react-redux'; 
 import { loadTodoFB } from './redux/modules/todo';
 import Spinner from './Spinner';
@@ -36,7 +35,7 @@ class App extends React.Component {
     
     this.props.load();
 
-   }
+  };
    
   render(){ 
     return ( 
@@ -122,6 +121,7 @@ const Footer = styled.div`
   left:-124px;
   & img{
     width:16vw;
+    
   }
   @media (min-width: 768px) and (max-width:1023px) {
   
@@ -129,6 +129,7 @@ const Footer = styled.div`
     left:-54px;
      & img{
     width:20vw;
+    height: 21vh;
     }
   }
 
@@ -139,7 +140,7 @@ const Footer = styled.div`
     bottom: -30px;
 
      & img{
-    width:22vw;
+   display: none;
     }
   }
   
