@@ -110,7 +110,7 @@ export const completeTodoFB = (id) => {
       dispatch(completeTodo());
       window.location.replace("/");
     }).catch(err => {
-      console.log(err)
+      console.log(err);
     })
   }
 }
@@ -125,10 +125,10 @@ export const deleteTodoFB = (id) => {
       return;
     }
     todo_db.doc(_todo_item.id).delete().then((docRef) => {
-      dispatch(deleteTodo(id))
+      dispatch(deleteTodo(id));
       window.location.replace("/");
     }).catch(err => {
-      console.log(err)
+      console.log(err);
     })
   }
 }

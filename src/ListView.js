@@ -23,7 +23,7 @@ function ListView(props) {
       //테이블의 tr이나 td의 경우 다중개를 보낼 수 없으니 
       //div로 묶어야하는데 그러면 불필요한 태그가 생기니 
       //이를 방지하기 위해 react Fragment 사용.
-         
+
       <React.Fragment>
         <Todo onClick={openModal}>{todo.text}
           {todo.done && <span style={{fontWeight:'600',color:'#D82D2D',marginLeft:'4px'}}>✓</span>}

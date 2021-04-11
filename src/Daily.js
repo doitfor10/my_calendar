@@ -15,7 +15,7 @@ const Daily = (props) => {
     let date = props.date.split('.');
    // const dispatch = useDispatch()
    // dispatch(loadTodoFB())  
-    let todoList = useSelector(state => state.todo.todos)
+    let todoList = useSelector(state => state.todo.todos);
     let btnToggle = props.btnToggle;
     
     
