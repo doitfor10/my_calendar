@@ -22,7 +22,7 @@ mommet.js를 사용해 캘린더를 제작했습니다.<br/>
 <br/>
 해당 페이지에서 원하는 날짜,시간대를 선택 후 일정을 추가할 수 있습니다.<br/><br/>
 <img width="750" alt="8 추가" src="https://user-images.githubusercontent.com/79818311/114307824-3d041780-9b1c-11eb-9bf4-b3b25518b0d3.png">
-<br/>
+<br/><br/>
 캘린더에서 일정을 누르면 모달창이 뜨며 일정 완료, 삭제를 할 수 있습니다.
 <img width="750" alt="모달" src="https://user-images.githubusercontent.com/79818311/114307851-6d4bb600-9b1c-11eb-9de7-4fea004f432b.png">
 <br/>
