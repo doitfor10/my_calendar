@@ -26,9 +26,8 @@ mommet.js를 사용해 캘린더를 제작했습니다.<br/>
 캘린더에서 일정을 누르면 모달창이 뜨며 일정 완료, 삭제를 할 수 있습니다.<br/><br/>
 <img width="750" alt="모달" src="https://user-images.githubusercontent.com/79818311/114307851-6d4bb600-9b1c-11eb-9de7-4fea004f432b.png">
 <br/>
-<br/>
-반응형으로 제작했습니다.
-
+반응형으로 제작했습니다.<br/><br/>
+<img width="359" alt="5  버튼 모바일" src="https://user-images.githubusercontent.com/79818311/114307889-ae43ca80-9b1c-11eb-8f71-a676128be3f5.png">
 
 
 
